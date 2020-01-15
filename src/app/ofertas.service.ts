@@ -16,5 +16,11 @@ export class OfertasService {
       .toPromise()
       .then((resposta: any) => resposta);
   }
+  
+  public getOfertasPorCategoria(categoria: string) {
+    return this.http.get(`http://localhost:3000/ofertas?categoria=${categoria}`)
+      .toPromise()
+      .then((resposta: any) => resposta);
+  }
 
 }
