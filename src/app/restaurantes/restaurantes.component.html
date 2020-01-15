@@ -9,7 +9,7 @@
 <div *ngFor="let oferta of ofertas">
   <div class="row" >
     <div class="col-md-4">
-      <img [src]="oferta.imagens[0].url" />
+      <img [src]="oferta.imagens[0].url" class="img-fluid" />
     </div>
 
     <div class="col-md-8">
@@ -30,17 +30,13 @@
       </div>
 
       <div class="row">
-        <button class="btn btn-outline-success">Ver oferta</button>
+        <button class="btn btn-outline-success" [routerLink]="['/oferta', oferta.id]">Ver oferta</button>
       </div>
     </div>
   </div>
+  <br>
 </div>
-  <hr />
-
-      <div class="row">
-        <button class="btn btn-outline-success">Ver oferta</button>
-      </div>
-  </div>
+<br> <br>
    
 
  
