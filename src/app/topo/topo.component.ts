@@ -16,6 +16,7 @@ import { of as observableOf} from 'rxjs';
 export class TopoComponent implements OnInit {
 
   public ofertas: Observable<Oferta[]>;
+  
   private subjectPesquisa: Subject<string> = new Subject<string>();
 
   constructor(private ofertasService: OfertasService) { }
@@ -41,5 +42,9 @@ export class TopoComponent implements OnInit {
 
   public pesquisa(termoDaPesquisa: string): void {
     this.subjectPesquisa.next(termoDaPesquisa);
+  }
+
+  limparPesquisa(): void {
+    this.subjectPesquisa.next(' ');
   }
 }
