@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { URL_API } from './app.api';
 import { catchError, map } from 'rxjs/operators';
+import { Content } from '@angular/compiler/src/render3/r3_ast';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,10 @@ export class OrdemCompraService {
     return this.http.post(`${URL_API}/pedidos`,
       pedido,
       httpOptions).pipe(
-        map((resposta: Response) => console.log(resposta))
-      )
+        map((resposta: Response) => {
+         JSON.stringify(resposta['id']);
+         console.log( JSON.stringify(resposta['id']))
+        })
+      );
   }
 }

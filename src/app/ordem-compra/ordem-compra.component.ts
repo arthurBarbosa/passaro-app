@@ -1,109 +1,53 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { OrdemCompraService } from '../ordem-compra.service';
 import { Pedido } from '../shared/pedido.model';
 
 @Component({
   selector: 'app-ordem-compra',
   templateUrl: './ordem-compra.component.html',
-  styleUrls: ['./ordem-compra.component.css']
+  styleUrls: ['./ordem-compra.component.css'],
+  providers: [ OrdemCompraService ]
 })
 export class OrdemCompraComponent implements OnInit {
 
-  public pedido: Pedido = new Pedido('', '', '', '');
+  public idPedidoCompra: number;
 
-  public endereco: string = '';
-  public numero: string = '';
-  public complemento: string = '';
-  public formaPagamento: string = '';
+  public formulario: FormGroup = new FormGroup({
+    'endereco': new FormControl(null, [ Validators.required, Validators.minLength(3), Validators.maxLength(120) ]),
+    'numero': new FormControl(null, [ Validators.required, Validators.minLength(1), Validators.maxLength(120)]),
+    'complemento': new FormControl(null),
+    'formaPagamento': new FormControl(null, [ Validators.required ])
+  });
 
-  // controles de validacao
-  public enderecoValido: boolean;
-  public numeroValido: boolean;
-  public complementoValido: boolean;
-  public pagamentoValido: boolean;
 
-  //estados primitivos dos campos (pristine)
-  public enderecoEstadoPrimitivo: boolean = true
-  public numeroEstadoPrimitivo: boolean = true
-  public complementoEstadoPrimitivo: boolean = true
-  public formaPagamentoEstadoPrimitivo: boolean = true
-
-  // controlar botao confirmar botao compra
-
-  public formEstado: string = 'disabled';
 
   constructor(private ordemCompraService: OrdemCompraService) { }
 
   ngOnInit() {
-    // this.ordemCompraService.efetivarCompra();
-  }
 
-  public atualizaEndereco(endereco: string): void {
-    this.endereco = endereco;
-    // console.log(this.endereco);
-    this.enderecoEstadoPrimitivo = false;
-    
-    if (this.endereco.length > 3) {
-      this.enderecoValido = true;
-    } else {
-      this.enderecoValido = false;
-    }
-    this.habilitaForm();
-  }
-
-  public atualizaNumero(numero: string): void {
-    this.numero = numero;
-   // console.log(this.numero);
-   this.numeroEstadoPrimitivo = false;
-
-   if (this.numero.length > 0) {
-    this.numeroValido = true;
-   } else {
-     this.numeroValido = false;
-    }
-    this.habilitaForm();
-
-  }
-
-  public atualizaComplemento(complemento: string): void {
-    this.complemento = complemento;
-    console.log(this.complemento);
-    this.formaPagamentoEstadoPrimitivo = false;
-    this.complementoEstadoPrimitivo = false;
-    if (complemento.length > 0) {
-      this.complementoValido = true;
-    }
-    this.habilitaForm();
-  }
-
-  public atualizaFormaPagamento(formaPagamento: string): void {
-    this.formaPagamento = formaPagamento;
-    console.log(this.formaPagamento);
-
-    if (formaPagamento.length > 5) {
-      this.pagamentoValido = true;
-    } else {
-      this.pagamentoValido = false;
-    }
-    this.habilitaForm();
-  }
-
-  public habilitaForm() {
-    if (this.enderecoValido == true && this.numeroValido == true && this.pagamentoValido == true) {
-      this.formEstado = '';
-    } else {
-      this.formEstado = 'disabled';
-    }
   }
 
   public confirmarCompra(): void {
-    
-    this.pedido.endereco = this.endereco;
-    this.pedido.numero = this.numero;
-    this.pedido.complemento = this.complemento;
-    this.pedido.formaPagamento = this.formaPagamento;
-   
-    this.ordemCompraService.efetivarCompra(this.pedido).subscribe();
+    if (this.formulario.status === 'INVALID') {
+      console.log('formulario invalido');
+      this.formulario.get('endereco').markAsTouched();
+      this.formulario.get('numero').markAsTouched();
+      this.formulario.get('complemento').markAsTouched();
+      this.formulario.get('formaPagamento').markAsTouched();
+    } else {
+      let pedido = new Pedido(
+        this.formulario.value.endereco,
+        this.formulario.value.numero,
+        this.formulario.value.complemento,
+        this.formulario.value.formaPagamento
+      );
+      this.ordemCompraService.efetivarCompra(pedido)
+        .subscribe((idPedido: number) => {
+          this.idPedidoCompra = idPedido;
+          console.log('compra atual ' + this.idPedidoCompra);
+        });
+    }
   }
 
 }
