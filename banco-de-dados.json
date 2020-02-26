@@ -446,13 +446,6 @@
       "id": 37
     },
     {
-      "endereco": "asdf",
-      "numero": "22",
-      "complemento": "sadf",
-      "formaPagamento": "dinheiro",
-      "id": 38
-    },
-    {
       "endereco": "maria das flores",
       "numero": "40",
       "complemento": "perto do lanche ",
@@ -514,6 +507,61 @@
       "complemento": null,
       "formaPagamento": "dinheiro",
       "id": 47
+    },
+    {
+      "endereco": "asfd",
+      "numero": "33",
+      "complemento": "sdf",
+      "formaPagamento": "dinheiro",
+      "id": 48
+    },
+    {
+      "endereco": "rua cruzeiro",
+      "numero": "09",
+      "complemento": "praca",
+      "formaPagamento": "dinheiro",
+      "itens": [
+        {
+          "id": 4,
+          "img": {
+            "url": "/assets/ofertas/4/img1.jpg"
+          },
+          "titulo": "Estância das águas",
+          "descricao_oferta": "Diversão garantida com piscinas, trilhas e muito mais.",
+          "valor": 31.9,
+          "quantidade": 1
+        }
+      ],
+      "id": 49
+    },
+    {
+      "endereco": "professora lila borges",
+      "numero": "333",
+      "complemento": null,
+      "formaPagamento": "dinheiro",
+      "itens": [
+        {
+          "id": 4,
+          "img": {
+            "url": "/assets/ofertas/4/img1.jpg"
+          },
+          "titulo": "Estância das águas",
+          "descricao_oferta": "Diversão garantida com piscinas, trilhas e muito mais.",
+          "valor": 31.9,
+          "quantidade": 1
+        },
+        {
+          "id": 5,
+          "img": {
+            "url": "/assets/ofertas/5/img1.jpg"
+          },
+          "titulo": "Kart",
+          "descricao_oferta": "Bateria de Kart de 30 minutos.",
+          "valor": 54.9,
+          "quantidade": 1
+        }
+      ],
+      "id": 50
     }
   ]
 }

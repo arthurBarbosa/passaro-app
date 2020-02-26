@@ -21,7 +21,7 @@ export class OfertasService {
       .toPromise()
       .then((resposta: any) => resposta);
   }
-  
+
   public getOfertasPorCategoria(categoria: string) {
     return this.http.get(`${URL_API}/ofertas?categoria=${categoria}`)
       .toPromise()
@@ -34,7 +34,7 @@ export class OfertasService {
       .then((resposta: any) => {
         return resposta[0]
       })
-      
+
   }
 
   public getComoUsarPorId(id: number): Promise<string> {
@@ -55,7 +55,7 @@ export class OfertasService {
 
   public pesquisaOfertas(termo: string): Observable<Oferta[]> {
     return this.http.get(`${URL_API}/ofertas?descricao_oferta_like=${termo}`)
-  
+
     .pipe(retry(10), map((resposta: any) => resposta));
   }
 
